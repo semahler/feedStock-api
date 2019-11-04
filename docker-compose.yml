@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: fs-app
+    restart: on-failure
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./config/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - fs-network
+
+  webserver:
+    image: nginx:latest
+    container_name: fs-webserver
+    restart: on-failure
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./config/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+    networks:
+      - fs-network
+
+  database:
+    image: mysql:5.7
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./config/mysql/my.cnf:/etc/mysql/my.cnf
+    container_name: fs-database
+    restart: on-failure
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "6Idol-Signs3"
+      MYSQL_USER: "fs"
+      MYSQL_PASSWORD: "fs-db2907"
+      MYSQL_DATABASE: "feedstock"
+    depends_on:
+      - app
+      - webserver
+    networks:
+      - fs-network
+
+networks:
+  fs-network:
+    driver: bridge
+volumes:
+  db:
+    driver: local
