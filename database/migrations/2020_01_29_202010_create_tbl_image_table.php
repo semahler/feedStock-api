@@ -14,7 +14,7 @@ class CreateTblImageTable extends Migration
     public function up()
     {
         Schema::create('tbl_image', function (Blueprint $table) {
-            $table->unsignedInteger('stock_history_id')->autoIncrement();
+            $table->unsignedInteger('image_id')->autoIncrement();
             $table->integer('food_id')->unsigned();
             $table->string('title');
             $table->string('image');
