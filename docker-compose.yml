@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+    feedstock-php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: digitalocean.com/php
+        container_name: feedstock-php
+        restart: on-failure
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+            - ./setup/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - fs-network
+
+    feedstock-nginx:
+        image: nginx:latest
+        container_name: feedstock-nginx
+        restart: on-failure
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www
+            - ./setup/nginx/conf.d/:/etc/nginx/conf.d/
+        depends_on:
+            - feedstock-php
+        networks:
+            - fs-network
+
+    feedstock-database:
+        image: mysql:5.7
+        volumes:
+            - ./db:/var/lib/mysql
+            - ./setup/mysql/my.cnf:/etc/mysql/my.cnf
+        container_name: feedstock-database
+        restart: on-failure
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: "6Idol-Signs3"
+            MYSQL_USER: "fs"
+            MYSQL_PASSWORD: "fs-db2907"
+            MYSQL_DATABASE: "feedstock"
+        depends_on:
+            - feedstock-php
+            - feedstock-nginx
+        networks:
+            - fs-network
+
+networks:
+    fs-network:
+        driver: bridge
+volumes:
+    db:
+        driver: local

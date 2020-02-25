@@ -1,2 +1,10 @@
-#IDE
+# IDE
 .idea
+
+# Environment
+db
+
+# lumen-framework
+vendor
+.env
+.phpunit.result.cache
