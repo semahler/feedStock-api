@@ -74,4 +74,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('foods/{id}', [
         'uses' => 'FoodController@deleteFood'
     ]);
+
+    $router->get('comments/{id}', [
+        'uses' => 'CommentsController@getCommentsByFoodId'
+    ]);
+    $router->post('comments', [
+        'uses' => 'CommentsController@createComment'
+    ]);
+
 });

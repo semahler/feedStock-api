@@ -11,6 +11,7 @@
 |
 */
 
+use App\Comment;
 use App\Food;
 use App\FoodType;
 use App\Manufacturer;
@@ -45,5 +46,12 @@ $factory->define(Food::class, function (Faker\Generator $faker) {
         'status' => $faker->boolean,
         'rating' => $faker->numberBetween(0, 10),
         'url' => $faker->url
+    ];
+});
+
+$factory->define(Comment::class, function (Faker\Generator $faker) {
+    return [
+        'food_id' => $faker->numberBetween(1, 10),
+        'comment' => $faker->text(250)
     ];
 });
