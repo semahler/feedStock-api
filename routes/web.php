@@ -82,4 +82,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'uses' => 'CommentsController@createComment'
     ]);
 
+    $router->get('stock_history/{id}', [
+        'uses' => 'StockHistoryController@getStockHistoryEntriesByFoodId'
+    ]);
+    $router->post('stock_history/', [
+        'uses' => 'StockHistoryController@createStockHistoryEntry'
+    ]);
+
 });
