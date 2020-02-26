@@ -34,3 +34,9 @@ $factory->define(\App\PackageUnit::class, function (Faker\Generator $faker) {
         'title' => $faker->words(3, true)
     ];
 });
+
+$factory->define(\App\FoodType::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->words(3, true)
+    ];
+});

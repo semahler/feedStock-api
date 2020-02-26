@@ -45,4 +45,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('package_units/{id}', [
         'uses' => 'PackageUnitController@deletePackageUnit'
     ]);
+
+    $router->get('food_types', [
+        'uses' => 'FoodTypeController@getFoodTypes'
+    ]);
+    $router->get('food_types/{id}', [
+        'uses' => 'FoodTypeController@getFoodType'
+    ]);
+    $router->post('food_types', [
+        'uses' => 'FoodTypeController@createFoodType'
+    ]);
+    $router->delete('food_types/{id}', [
+        'uses' => 'FoodTypeController@deleteFoodType'
+    ]);
 });
