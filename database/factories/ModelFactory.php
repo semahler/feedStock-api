@@ -11,15 +11,10 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-    ];
-});
-
-
+use App\Food;
+use App\FoodType;
 use App\Manufacturer;
+use App\PackageUnit;
 
 $factory->define(Manufacturer::class, function (Faker\Generator $faker) {
     return [
@@ -29,14 +24,26 @@ $factory->define(Manufacturer::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\PackageUnit::class, function (Faker\Generator $faker) {
+$factory->define(PackageUnit::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->words(3, true)
     ];
 });
 
-$factory->define(\App\FoodType::class, function (Faker\Generator $faker) {
+$factory->define(FoodType::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->words(3, true)
+    ];
+});
+
+$factory->define(Food::class, function (Faker\Generator $faker) {
+    return [
+        'manufacturer_id' => $faker->numberBetween(1, 10),
+        'food_type_id' => $faker->numberBetween(1, 3),
+        'package_unit_id' => $faker->numberBetween(1, 3),
+        'name' => $faker->words(3, true),
+        'status' => $faker->boolean,
+        'rating' => $faker->numberBetween(0, 10),
+        'url' => $faker->url
     ];
 });
