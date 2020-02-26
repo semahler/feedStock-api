@@ -14,3 +14,26 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+
+    $router->get('manufacturers', [
+        'uses' => 'ManufacturerController@getManufacturers']
+    );
+
+    $router->get('manufacturers/{id}', [
+        'uses' => 'ManufacturerController@getManufacturer']
+    );
+
+    $router->post('manufacturers', [
+        'uses' => 'ManufacturerController@createManufacturer']
+    );
+
+    $router->delete('manufacturers/{id}', [
+        'uses' => 'ManufacturerController@deleteManufacturer']
+    );
+
+    $router->put('manufacturers/{id}', [
+        'uses' => 'ManufacturerController@updateManufacturer']
+    );
+});

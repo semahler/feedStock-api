@@ -1,8 +1,9 @@
 <?php
 
+use App\Manufacturer;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ManufacturerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ManufacturerTableSeeder::class);
+        $manufacturers = factory(Manufacturer::class, 10)->create();
     }
 }

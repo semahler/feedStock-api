@@ -17,3 +17,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->email,
     ];
 });
+
+
+use App\Manufacturer;
+
+$factory->define(Manufacturer::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
+        'url' => $faker->url,
+        'image'=>$faker->imageUrl('640', '480', 'cats')
+    ];
+});
