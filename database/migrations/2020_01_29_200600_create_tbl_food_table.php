@@ -20,7 +20,7 @@ class CreateTblFoodTable extends Migration
             $table->integer('package_unit_id')->unsigned();
             $table->string('name');
             $table->boolean('status');
-            $table->integer('ratung')->unsigned();
+            $table->integer('rating')->unsigned();
             $table->string('url');
             $table->timestamps();
 
