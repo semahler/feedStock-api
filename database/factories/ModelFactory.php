@@ -28,3 +28,9 @@ $factory->define(Manufacturer::class, function (Faker\Generator $faker) {
         'image'=>$faker->imageUrl('640', '480', 'cats')
     ];
 });
+
+$factory->define(\App\PackageUnit::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->words(3, true)
+    ];
+});

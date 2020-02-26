@@ -18,22 +18,31 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('manufacturers', [
-        'uses' => 'ManufacturerController@getManufacturers']
-    );
-
+        'uses' => 'ManufacturerController@getManufacturers'
+    ]);
     $router->get('manufacturers/{id}', [
-        'uses' => 'ManufacturerController@getManufacturer']
-    );
-
+        'uses' => 'ManufacturerController@getManufacturer'
+    ]);
     $router->post('manufacturers', [
-        'uses' => 'ManufacturerController@createManufacturer']
-    );
-
+        'uses' => 'ManufacturerController@createManufacturer'
+    ]);
     $router->delete('manufacturers/{id}', [
-        'uses' => 'ManufacturerController@deleteManufacturer']
-    );
-
+        'uses' => 'ManufacturerController@deleteManufacturer'
+    ]);
     $router->put('manufacturers/{id}', [
-        'uses' => 'ManufacturerController@updateManufacturer']
-    );
+        'uses' => 'ManufacturerController@updateManufacturer'
+    ]);
+
+    $router->get('package_units', [
+        'uses' => 'PackageUnitController@getPackageUnits'
+    ]);
+    $router->get('package_units/{id}', [
+        'uses' => 'PackageUnitController@getPackageUnit'
+    ]);
+    $router->post('package_units', [
+        'uses' => 'PackageUnitController@createPackageUnit'
+    ]);
+    $router->delete('package_units/{id}', [
+        'uses' => 'PackageUnitController@deletePackageUnit'
+    ]);
 });
