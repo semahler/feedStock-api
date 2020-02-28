@@ -89,4 +89,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'uses' => 'StockHistoryController@createStockHistoryEntry'
     ]);
 
+    $router->get('stock_total/{id}', [
+       'uses' => 'StockTotalController@getStockTotalByFoodId'
+    ]);
+
 });

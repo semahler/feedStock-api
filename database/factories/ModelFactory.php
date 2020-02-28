@@ -63,3 +63,10 @@ $factory->define(StockHistory::class, function (Faker\Generator $faker) {
         'quantity' => $faker->randomDigit
     ];
 });
+
+$factory->define(\App\StockTotal::class, function (Faker\Generator $faker) {
+    return [
+        'food_id' => $faker->numberBetween(1, 10),
+        'total_stock' => $faker->randomDigit
+    ];
+});
