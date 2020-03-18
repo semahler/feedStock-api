@@ -1,9 +1,9 @@
 <?php
 
-use App\Food;
+use App\Models\Feed;
 use Illuminate\Database\Seeder;
 
-class FoodTableSeeder extends Seeder
+class FeedTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class FoodTableSeeder extends Seeder
      */
     public function run()
     {
-        $foods = factory(Food::class, 30)->create();
+        $feeds = factory(Feed::class, 30)->create();
     }
 }

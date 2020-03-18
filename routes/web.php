@@ -24,13 +24,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'uses' => 'ManufacturerController@getManufacturer'
     ]);
     $router->post('manufacturers', [
-        'uses' => 'ManufacturerController@createManufacturer'
+        'uses' => 'ManufacturerController@createOrUpdateManufacturer'
     ]);
     $router->delete('manufacturers/{id}', [
         'uses' => 'ManufacturerController@deleteManufacturer'
-    ]);
-    $router->put('manufacturers/{id}', [
-        'uses' => 'ManufacturerController@updateManufacturer'
     ]);
 
     $router->get('package_units', [
@@ -40,57 +37,54 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'uses' => 'PackageUnitController@getPackageUnit'
     ]);
     $router->post('package_units', [
-        'uses' => 'PackageUnitController@createPackageUnit'
+        'uses' => 'PackageUnitController@createOrUpdatePackageUnit'
     ]);
     $router->delete('package_units/{id}', [
         'uses' => 'PackageUnitController@deletePackageUnit'
     ]);
 
-    $router->get('food_types', [
-        'uses' => 'FoodTypeController@getFoodTypes'
+    $router->get('feed_types', [
+        'uses' => 'FeedTypeController@getFeedTypes'
     ]);
-    $router->get('food_types/{id}', [
-        'uses' => 'FoodTypeController@getFoodType'
+    $router->get('feed_types/{id}', [
+        'uses' => 'FeedTypeController@getFeedType'
     ]);
-    $router->post('food_types', [
-        'uses' => 'FoodTypeController@createFoodType'
+    $router->post('feed_types', [
+        'uses' => 'FeedTypeController@createOrUpdateFeedType'
     ]);
-    $router->delete('food_types/{id}', [
-        'uses' => 'FoodTypeController@deleteFoodType'
+    $router->delete('feed_types/{id}', [
+        'uses' => 'FeedTypeController@deleteFeedType'
     ]);
 
-    $router->get('foods', [
-        'uses' => 'FoodController@getFoods'
+    $router->get('feeds', [
+        'uses' => 'FeedController@getFeeds'
     ]);
-    $router->get('foods/{id}', [
-        'uses' => 'FoodController@getFood'
+    $router->get('feeds/{id}', [
+        'uses' => 'FeedController@getFeed'
     ]);
-    $router->post('foods', [
-        'uses' => 'FoodController@createFood'
+    $router->post('feeds', [
+        'uses' => 'FeedController@createOrUpdateFeed'
     ]);
-    $router->put('foods/{id}', [
-        'uses' => 'FoodController@updateFood'
-    ]);
-    $router->delete('foods/{id}', [
-        'uses' => 'FoodController@deleteFood'
+    $router->delete('feeds/{id}', [
+        'uses' => 'FeedController@deleteFeed'
     ]);
 
     $router->get('comments/{id}', [
-        'uses' => 'CommentsController@getCommentsByFoodId'
+        'uses' => 'CommentsController@getCommentsByFeedId'
     ]);
     $router->post('comments', [
         'uses' => 'CommentsController@createComment'
     ]);
 
     $router->get('stock_history/{id}', [
-        'uses' => 'StockHistoryController@getStockHistoryEntriesByFoodId'
+        'uses' => 'StockHistoryController@getStockHistoryEntriesByFeedId'
     ]);
     $router->post('stock_history/', [
         'uses' => 'StockHistoryController@createStockHistoryEntry'
     ]);
 
     $router->get('stock_total/{id}', [
-       'uses' => 'StockTotalController@getStockTotalByFoodId'
+       'uses' => 'StockTotalController@getStockTotalByFeedId'
     ]);
 
 });

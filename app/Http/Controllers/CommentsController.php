@@ -2,26 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\PackageUnit;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentsController
 {
 
-    public function getCommentsByFoodId($id) {
-        $comments = Comment::where('food_id', '=', $id)->get();
+    /**
+     * Controller constructor.
+     *
+     * @param  \App\Models\Comment  $comment
+     */
+    public function __construct(Comment $comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCommentsByFeedId($feedId)
+    {
+        $comments = $this->comment->getCommentsByFeedId($feedId);
 
         return response()->json($comments);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
     public function createComment(Request $request) {
-        $comment = new Comment();
+        $comment = $this->comment->createComment($request);
 
-        $comment->food_id = $request->food_id;
-        $comment->comment = $request->comment;
-        $comment->save();
-
-        return response()->json($comment, 201);
+        return response($comment, 200);
     }
 }

@@ -15,11 +15,11 @@ class CreateTblCommentTable extends Migration
     {
         Schema::create('tbl_comment', function (Blueprint $table) {
             $table->unsignedInteger('comment_id')->autoIncrement();
-            $table->integer('food_id')->unsigned();
+            $table->integer('feed_id')->unsigned();
             $table->mediumText('comment');
             $table->timestamps();
 
-            $table->foreign('food_id')->references('food_id')->on('tbl_food');
+            $table->foreign('feed_id')->references('feed_id')->on('tbl_feed');
         });
     }
 

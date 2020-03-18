@@ -15,11 +15,11 @@ class CreateTblStockTotalTable extends Migration
     {
         Schema::create('tbl_stock_total', function (Blueprint $table) {
             $table->unsignedInteger('stock_total_id')->autoIncrement();
-            $table->integer('food_id')->unsigned();
+            $table->integer('feed_id')->unsigned();
             $table->integer('total_stock')->unsigned();
             $table->timestamps();
 
-            $table->foreign('food_id')->references('food_id')->on('tbl_food');
+            $table->foreign('feed_id')->references('feed_id')->on('tbl_feed');
         });
     }
 

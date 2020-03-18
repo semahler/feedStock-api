@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StockTotal;
 use Illuminate\Database\Seeder;
 
 class StockTotalTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class StockTotalTableSeeder extends Seeder
      */
     public function run()
     {
-        $stockTotalEntries = factory(\App\StockTotal::class, 20)->create();
+        $stockTotalEntries = factory(StockTotal::class, 20)->create();
     }
 }

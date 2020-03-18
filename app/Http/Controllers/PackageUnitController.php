@@ -2,37 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\PackageUnit;
+use App\Models\PackageUnit;
 use Illuminate\Http\Request;
 
 class PackageUnitController
 {
 
+    /**
+     * Controller constructor.
+     *
+     * @param  \App\Models\PackageUnit  $packageUnit
+     */
+    public function __construct(PackageUnit $packageUnit)
+    {
+        $this->packageUnit = $packageUnit;
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPackageUnits() {
-        $packageUnits = PackageUnit::all();
+        $packageUnits = $this->packageUnit->getAllPackageUnits();
 
         return response()->json($packageUnits);
     }
 
-    public function getPackageUnit($id) {
-        $packageUnit = PackageUnit::find($id);
+    /**
+     * @param int $packageUnitId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPackageUnit($packageUnitId) {
+        $packageUnit = $this->packageUnit->getPackageUnitByPackageUnitId($packageUnitId);
 
-        return response()->json($packageUnit);
+        return response()->json($packageUnitId);
     }
 
-    public function createPackageUnit(Request $request) {
-        $packageUnit = new PackageUnit();
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function createOrUpdatePackageUnit(Request $request) {
+        $packageUnit = $this->packageUnit->createOrUpdatePackageUnit($request);
 
-        $packageUnit->title = $request->title;
-        $packageUnit->save();
-
-        return response()->json($packageUnit, 201);
+        return response($packageUnit, 200);
     }
 
-    public function deletePackageUnit($id) {
-        $packageUnit = PackageUnit::find($id);
-        $packageUnit->delete();
+    /**
+     * @param int $packageUnitId
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function deletePackageUnit($packageUnitId) {
+        $result = $this->packageUnit->deletePackageUnit($packageUnitId);
 
-        return response('Deleted Successfully', 200);
+        return response($result, 200);
     }
 }

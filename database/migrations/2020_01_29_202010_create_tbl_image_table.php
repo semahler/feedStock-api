@@ -15,11 +15,11 @@ class CreateTblImageTable extends Migration
     {
         Schema::create('tbl_image', function (Blueprint $table) {
             $table->unsignedInteger('image_id')->autoIncrement();
-            $table->integer('food_id')->unsigned();
+            $table->integer('feed_id')->unsigned();
             $table->string('title');
             $table->string('image');
 
-            $table->foreign('food_id')->references('food_id')->on('tbl_food');
+            $table->foreign('feed_id')->references('feed_id')->on('tbl_feed');
         });
     }
 

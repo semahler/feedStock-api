@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblFoodTypeTable extends Migration
+class CreateTblFeedTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateTblFoodTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_food_type', function (Blueprint $table) {
-            $table->unsignedInteger('food_type_id')->autoIncrement();
+        Schema::create('tbl_feed_type', function (Blueprint $table) {
+            $table->unsignedInteger('feed_type_id')->autoIncrement();
             $table->string('title');
         });
     }
@@ -26,6 +26,6 @@ class CreateTblFoodTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_food_type');
+        Schema::dropIfExists('tbl_feed_type');
     }
 }

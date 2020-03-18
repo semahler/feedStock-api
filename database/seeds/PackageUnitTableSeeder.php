@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PackageUnit;
 use Illuminate\Database\Seeder;
 
 class PackageUnitTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class PackageUnitTableSeeder extends Seeder
      */
     public function run()
     {
-        $packageUnits = factory(\App\PackageUnit::class, 3)->create();
+        $packageUnits = factory(PackageUnit::class, 3)->create();
     }
 }
