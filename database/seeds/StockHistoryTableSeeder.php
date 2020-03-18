@@ -1,6 +1,6 @@
 <?php
 
-use App\StockHistory;
+use App\Models\StockHistory;
 use Illuminate\Database\Seeder;
 
 class StockHistoryTableSeeder extends Seeder

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,4 +27,14 @@ class StockTotal extends Model
      */
     public $timestamps = true;
 
+    /**
+     * @param int $feedId
+     *
+     * @return StockTotal
+     */
+    public function getStockTotalByFeedId($feedId) {
+        $stockTotal = StockTotal::where('feed_id', '=', $feedId)->get();
+
+        return $stockTotal;
+    }
 }

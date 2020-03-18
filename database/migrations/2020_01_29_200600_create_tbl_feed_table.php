@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblFoodTable extends Migration
+class CreateTblFeedTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTblFoodTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_food', function (Blueprint $table) {
-            $table->unsignedInteger('food_id')->autoIncrement();
+        Schema::create('tbl_feed', function (Blueprint $table) {
+            $table->unsignedInteger('feed_id')->autoIncrement();
             $table->integer('manufacturer_id')->unsigned();
-            $table->integer('food_type_id')->unsigned();
+            $table->integer('feed_type_id')->unsigned();
             $table->integer('package_unit_id')->unsigned();
             $table->string('name');
             $table->boolean('status');
@@ -25,7 +25,7 @@ class CreateTblFoodTable extends Migration
             $table->timestamps();
 
             $table->foreign('manufacturer_id')->references('manufacturer_id')->on('tbl_manufacturer');
-            $table->foreign('food_type_id')->references('food_type_id')->on('tbl_food_type');
+            $table->foreign('feed_type_id')->references('feed_type_id')->on('tbl_feed_type');
             $table->foreign('package_unit_id')->references('package_unit_id')->on('tbl_package_unit');
         });
     }
@@ -37,6 +37,6 @@ class CreateTblFoodTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_food');
+        Schema::dropIfExists('tbl_feed');
     }
 }

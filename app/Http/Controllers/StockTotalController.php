@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\StockTotal;
-use App\StockHistory;
-use Illuminate\Http\Request;
+use App\Models\StockTotal;
 
 class StockTotalController
 {
 
-    public function getStockTotalByFoodId($id) {
-        $stockTotal = StockTotal::where('food_id', '=', $id)->get();
-
-        return response()->json($stockTotal);
+    /**
+     * Controller constructor.
+     *
+     * @param  \App\Models\StockTotal  $stockTotal
+     */
+    public function __construct(StockTotal  $stockTotal)
+    {
+        $this->stockTotal = $stockTotal;
     }
 
-    public function createStockTotalEntry(Request $request) {
-        $stockTotalEntry = new StockTotal();
+    public function getStockTotalByFeedId($feedId) {
+        $stockTotal = $this->stockTotal->getStockTotalByFeedId($feedId);
 
-        $stockTotalEntry->food_id = $request->food_id;
-        $stockTotalEntry->total_stock = $request->total_stock;
-
-        $stockTotalEntry->save();
+        return response()->json($stockTotal);
     }
 }

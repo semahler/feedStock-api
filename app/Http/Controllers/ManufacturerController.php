@@ -2,52 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Manufacturer;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
 class ManufacturerController
 {
 
+    /**
+     * Controller constructor.
+     *
+     * @param  \App\Models\Manufacturer  $manufacturer
+     */
+    public function __construct(Manufacturer $manufacturer)
+    {
+        $this->manufacturer = $manufacturer;
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getManufacturers() {
-        $manufacturers = Manufacturer::all();
+        $manufacturers = $this->manufacturer->getAllManufacturers();
 
         return response()->json($manufacturers);
     }
 
-    public function getManufacturer($id) {
-        $manufacturer = Manufacturer::find($id);
+    /**
+     * @param int $manufacturerId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getManufacturer($manufacturerId) {
+        $manufacturer = $this->manufacturer->getManufacturerByManufacturerId($manufacturerId);
 
         return response()->json($manufacturer);
     }
 
-    public function createManufacturer(Request $request) {
-        $manufacturer = new Manufacturer();
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function createOrUpdateManufacturer(Request $request) {
+        $manufacturer = $this->manufacturer->createOrUpdateManufacturer($request);
 
-        $manufacturer->name = $request->name;
-        $manufacturer->url = $request->url;
-        $manufacturer->image = $request->image;
-
-        $manufacturer->save();
-
-        return response()->json($manufacturer, 201);
+        return response($manufacturer, 200);
     }
 
-    public function updateManufacturer($id, Request $request){
-        $manufacturer = Manufacturer::find($id);
+    /**
+     * @param int $manufacturerId
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function deleteManufacturer($manufacturerId) {
+        $result = $this->manufacturer->deleteManufacturer($manufacturerId);
 
-        $manufacturer->name = $request->name;
-        $manufacturer->url = $request->url;
-        $manufacturer->image = $request->image;
-
-        $manufacturer->update();
-
-        return response()->json($manufacturer, 200);
-    }
-
-    public function deleteManufacturer($id) {
-        $manufacturer = Manufacturer::find($id);
-        $manufacturer->delete();
-
-        return response('Deleted Successfully', 200);
+        return response($result, 200);
     }
 }

@@ -2,27 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\FoodType;
-use App\StockHistory;
+use App\Models\StockHistory;
 use Illuminate\Http\Request;
 
 class StockHistoryController
 {
 
-    public function getStockHistoryEntriesByFoodId($id) {
-        $stockHistoryEntries = StockHistory::where('food_id', '=', $id)->get();
+    /**
+     * Controller constructor.
+     *
+     * @param  \App\Models\StockHistory  $stockHistory
+     */
+    public function __construct(StockHistory  $stockHistory)
+    {
+        $this->stockHistory = $stockHistory;
+    }
+
+    /**
+     * @param int $feedId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getStockHistoryEntriesByFeedId($feedId) {
+        $stockHistoryEntries = $this->stockHistory->getStockHistoryEntriesByFeedId($feedId);
 
         return response()->json($stockHistoryEntries);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
     public function createStockHistoryEntry(Request $request) {
-        $stockHistoryEntry = new StockHistory();
+        $stockHistoryEntry = $this->stockHistory->createStockHistoryEntry($request);
 
-        $stockHistoryEntry->food_id = $request->food_id;
-        $stockHistoryEntry->quantity = $request->quantity;
-
-        $stockHistoryEntry->save();
-
-        return response()->json($stockHistoryEntry, 201);
+        return response($stockHistoryEntry, 200);
     }
 }
