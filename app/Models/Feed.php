@@ -29,6 +29,15 @@ class Feed extends Model
     public $timestamps = true;
 
     /**
+     * Mapping the Manufacturer to the corresponding Feed-Model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function manufacturer() {
+        return $this->belongsTo(Manufacturer::class, 'manufacturer_id', 'manufacturer_id');
+    }
+
+    /**
      * @return Feed[]
      */
     public function getAllFeeds() {
@@ -55,6 +64,9 @@ class Feed extends Model
      */
     public function getFeedByFeedId($feedId) {
         $feed = Feed::find($feedId);
+        $feed_manufacturer = Feed::find($feedId)->manufacturer->name;
+
+        $feed->manufacturer_name = $feed_manufacturer;
 
         return $feed;
     }
