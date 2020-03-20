@@ -37,11 +37,26 @@ class Feed extends Model
         return $this->belongsTo(Manufacturer::class, 'manufacturer_id', 'manufacturer_id');
     }
 
+    public function stockTotal() {
+        return $this->hasOne(StockTotal::class, 'feed_id', 'feed_id');
+    }
+
     /**
      * @return Feed[]
      */
     public function getAllFeeds() {
         $feeds = Feed::all();
+
+        foreach ($feeds as $feed) {
+            $feed_manufacturer = Feed::find($feed->feed_id)->manufacturer->name;
+            $feed->manufacturer_name = $feed_manufacturer;
+
+            $feed->stock_total = 0;
+            $feed_stock_total = Feed::find($feed->feed_id)->stockTotal;
+            if ($feed_stock_total) {
+                $feed->stock_total = $feed_stock_total->total_stock;
+            }
+        }
 
         return $feeds;
     }
@@ -64,9 +79,12 @@ class Feed extends Model
      */
     public function getFeedByFeedId($feedId) {
         $feed = Feed::find($feedId);
-        $feed_manufacturer = Feed::find($feedId)->manufacturer->name;
 
+        $feed_manufacturer = Feed::find($feedId)->manufacturer->name;
         $feed->manufacturer_name = $feed_manufacturer;
+
+        $stock_total = Feed::find($feed->feed_id)->stockTotal->total_stock;
+        $feed->stock_total = $stock_total;
 
         return $feed;
     }
@@ -95,6 +113,8 @@ class Feed extends Model
         }
 
         // Todo: Implement details
+
+        // TotalStockEntrie anlegen
 
         $feed->save();
 
