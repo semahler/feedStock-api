@@ -35,7 +35,7 @@ class FeedController
     public function getFeed($feedId) {
         $feed = $this->feed->getFeedByFeedId($feedId);
 
-        return response()->json($feedId);
+        return response()->json($feed);
     }
 
     /**
