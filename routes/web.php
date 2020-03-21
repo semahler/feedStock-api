@@ -62,6 +62,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('feeds/{id}', [
         'uses' => 'FeedController@getFeed'
     ]);
+    $router->get('feedsByManufacturer/{id}', [
+        'uses' => 'FeedController@getFeedsByManufacturer'
+    ]);
     $router->post('feeds', [
         'uses' => 'FeedController@createOrUpdateFeed'
     ]);
@@ -76,11 +79,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'uses' => 'CommentsController@createComment'
     ]);
 
-    $router->get('stock_history/{id}', [
-        'uses' => 'StockHistoryController@getStockHistoryEntriesByFeedId'
+    $router->get('stock_movement/{id}', [
+        'uses' => 'StockMovementController@getStocMovementEntriesByFeedId'
     ]);
-    $router->post('stock_history/', [
-        'uses' => 'StockHistoryController@createStockHistoryEntry'
+    $router->post('stock_movement/', [
+        'uses' => 'StockMovementController@createStockMovementEntry'
     ]);
 
     $router->get('stock_total/{id}', [

@@ -54,7 +54,7 @@ class Feed extends Model
             $feed->stock_total = 0;
             $feed_stock_total = Feed::find($feed->feed_id)->stockTotal;
             if ($feed_stock_total) {
-                $feed->stock_total = $feed_stock_total->total_stock;
+                $feed->stock_total = $feed_stock_total->quantity;
             }
         }
 
@@ -83,7 +83,7 @@ class Feed extends Model
         $feed_manufacturer = Feed::find($feedId)->manufacturer->name;
         $feed->manufacturer_name = $feed_manufacturer;
 
-        $stock_total = Feed::find($feed->feed_id)->stockTotal->total_stock;
+        $stock_total = Feed::find($feed->feed_id)->stockTotal->quantity;
         $feed->stock_total = $stock_total;
 
         return $feed;

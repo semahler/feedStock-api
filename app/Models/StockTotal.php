@@ -42,8 +42,32 @@ class StockTotal extends Model
      * @return StockTotal
      */
     public function getStockTotalByFeedId($feedId) {
-        $stockTotal = StockTotal::where('feed_id', '=', $feedId)->get();
+        $stockTotalEntry = StockTotal::where('feed_id', '=', $feedId)->first();
 
-        return $stockTotal;
+        return $stockTotalEntry;
+    }
+
+    /**
+     * @param int $feedId
+     */
+    public function createStockTotalEntry($feedId) {
+        $stockTotal = new StockTotal();
+
+        $stockTotal->feed_id = $feedId;
+        $stockTotal->quantity = 0;
+
+        $stockTotal->save();
+    }
+
+    /**
+     * @param int $feedId
+     * @param int $quantity
+     */
+    public function updateStockTotalEntry($feedId, $quantity) {
+        $stockTotalEntry = $this->getStockTotalByFeedId($feedId);
+
+        $stockTotalEntry->quantity = $quantity;
+
+        $stockTotalEntry->save();
     }
 }

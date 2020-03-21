@@ -28,6 +28,17 @@ class FeedController
     }
 
     /**
+     * @param int $manufacturerId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFeedsByManufacturer($manufacturerId) {
+        $feeds = $this->feed->getFeedsByManufacturerId($manufacturerId);
+
+        return response()->json($feeds);
+    }
+
+    /**
      * @param int $feedId
      *
      * @return \Illuminate\Http\JsonResponse

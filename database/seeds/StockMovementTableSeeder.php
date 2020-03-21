@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\StockHistory;
+use App\Models\StockMovement;
 use Illuminate\Database\Seeder;
 
-class StockHistoryTableSeeder extends Seeder
+class StockMovementTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class StockHistoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $stockHistoryEntries = factory(StockHistory::class, 20)->create();
+        $stockMovementEntries = factory(StockMovement::class, 20)->create();
     }
 }
