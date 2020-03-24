@@ -29,6 +29,15 @@ class FeedType extends Model
     public $timestamps = false;
 
     /**
+     * Mapping the feed-type-entry to the corresponding Feed-models
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function feeds() {
+        return $this->hasMany(Feed::class, 'feed_type_id', 'feed_type_id');
+    }
+
+    /**
      * @return FeedType[]
      */
     public function getAllFeedTypes() {

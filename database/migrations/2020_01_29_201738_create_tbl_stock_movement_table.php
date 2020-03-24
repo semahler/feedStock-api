@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblStockHistoryTable extends Migration
+class CreateTblStockMovementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateTblStockHistoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_stock_history', function (Blueprint $table) {
-            $table->unsignedInteger('stock_history_id')->autoIncrement();
+        Schema::create('tbl_stock_movement', function (Blueprint $table) {
+            $table->unsignedInteger('stock_movement_id')->autoIncrement();
             $table->integer('feed_id')->unsigned();
             $table->integer('quantity');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateTblStockHistoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_stock_history');
+        Schema::dropIfExists('tbl_stock_movement');
     }
 }

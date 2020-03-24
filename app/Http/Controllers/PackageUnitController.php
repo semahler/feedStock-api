@@ -35,7 +35,7 @@ class PackageUnitController
     public function getPackageUnit($packageUnitId) {
         $packageUnit = $this->packageUnit->getPackageUnitByPackageUnitId($packageUnitId);
 
-        return response()->json($packageUnitId);
+        return response()->json($packageUnit);
     }
 
     /**

@@ -29,20 +29,38 @@ class Manufacturer extends Model
     public $timestamps = false;
 
     /**
+     * Mapping the manufacturer-entry to the corresponding Feed-models
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function feeds() {
+        return $this->hasMany(Feed::class, 'manufacturer_id', 'manufacturer_id');
+    }
+
+    /**
      * @return Manufacturer[]
      */
     public function getAllManufacturers() {
         $manufacturers = Manufacturer::all();
 
+        foreach ($manufacturers as $manufacturer) {
+            $manufacturer_feed_count = Manufacturer::find($manufacturer->manufacturer_id)->feeds()->count();
+            $manufacturer->feed_count = $manufacturer_feed_count;
+        }
+
         return $manufacturers;
     }
 
-    public function getManufacturerByManufacturerId($manufacturerId, $withFeed = false) {
+    /**
+     * @param $manufacturerId
+     *
+     * @return Manufacturer
+     */
+    public function getManufacturerByManufacturerId($manufacturerId) {
         $manufacturer = Manufacturer::find($manufacturerId);
 
-        if ($withFeed) {
-
-        }
+        $manufacturer_feeds = Manufacturer::find($manufacturerId)->feeds()->get();
+        $manufacturer->feeds = $manufacturer_feeds;
 
         return $manufacturer;
     }
@@ -54,7 +72,7 @@ class Manufacturer extends Model
      */
     public function createOrUpdateManufacturer(Request $request){
         if (!is_null($request->id)) {
-            $manufacturer = $this->getManufacturerByManufacturerId($request->id);
+            $manufacturer = Manufacturer::find($request->id);
         } else {
             $manufacturer = new Manufacturer();
         }

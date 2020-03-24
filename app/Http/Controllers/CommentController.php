@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class CommentsController
+class CommentController
 {
 
     /**
@@ -21,8 +21,7 @@ class CommentsController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCommentsByFeedId($feedId)
-    {
+    public function getCommentsByFeedId($feedId) {
         $comments = $this->comment->getCommentsByFeedId($feedId);
 
         return response()->json($comments);

@@ -16,7 +16,7 @@ use App\Models\Feed;
 use App\Models\FeedType;
 use App\Models\Manufacturer;
 use App\Models\PackageUnit;
-use App\Models\StockHistory;
+use App\Models\StockMovement;
 use App\Models\StockTotal;
 
 $factory->define(Manufacturer::class, function (Faker\Generator $faker) {
@@ -58,7 +58,7 @@ $factory->define(Comment::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(StockHistory::class, function (Faker\Generator $faker) {
+$factory->define(StockMovement::class, function (Faker\Generator $faker) {
     return [
         'feed_id' => $faker->numberBetween(1, 10),
         'quantity' => $faker->randomDigit
@@ -68,6 +68,6 @@ $factory->define(StockHistory::class, function (Faker\Generator $faker) {
 $factory->define(StockTotal::class, function (Faker\Generator $faker) {
     return [
         'feed_id' => $faker->numberBetween(1, 10),
-        'total_stock' => $faker->randomDigit
+        'quantity' => $faker->randomDigit
     ];
 });
