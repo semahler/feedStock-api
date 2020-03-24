@@ -73,14 +73,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     ]);
 
     $router->get('comments/{id}', [
-        'uses' => 'CommentsController@getCommentsByFeedId'
+        'uses' => 'CommentController@getCommentsByFeedId'
     ]);
     $router->post('comments', [
-        'uses' => 'CommentsController@createComment'
+        'uses' => 'CommentController@createComment'
     ]);
 
     $router->get('stock_movement/{id}', [
-        'uses' => 'StockMovementController@getStocMovementEntriesByFeedId'
+        'uses' => 'StockMovementController@getStockMovementEntriesByFeedId'
     ]);
     $router->post('stock_movement/', [
         'uses' => 'StockMovementController@createStockMovementEntry'

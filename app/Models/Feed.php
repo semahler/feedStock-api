@@ -28,6 +28,8 @@ class Feed extends Model
      */
     public $timestamps = true;
 
+    protected $guarded = ['manufacturer_name'];
+
     /**
      * Mapping the Manufacturer to the corresponding Feed-Model
      *
@@ -37,8 +39,31 @@ class Feed extends Model
         return $this->belongsTo(Manufacturer::class, 'manufacturer_id', 'manufacturer_id');
     }
 
+    /**
+     * Mapping the total-stock-entry to the corresponding Feed-Model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function stockTotal() {
         return $this->hasOne(StockTotal::class, 'feed_id', 'feed_id');
+    }
+
+    /**
+     * Mapping the feed-type-entry to the corresponding Feed-Model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function feedType() {
+        return $this->belongsTo(FeedType::class, 'feed_type_id', 'feed_type_id');
+    }
+
+    /**
+     * Mapping the package-unit-entry to the corresponding Feed-Model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function packageUnit() {
+        return $this->belongsTo(PackageUnit::class, 'package_unit_id', 'package_unit_id');
     }
 
     /**
@@ -86,6 +111,12 @@ class Feed extends Model
         $stock_total = Feed::find($feed->feed_id)->stockTotal->quantity;
         $feed->stock_total = $stock_total;
 
+        $feed_type_title = Feed::find($feed->feed_id)->feedType->title;
+        $feed->feed_type_title = $feed_type_title;
+
+        $package_unit_title = Feed::find($feed->feed_id)->packageUnit->title;
+        $feed->package_unit_title = $package_unit_title;
+
         return $feed;
     }
 
@@ -107,14 +138,21 @@ class Feed extends Model
      */
     public function createOrUpdateFeed(Request $request){
         if (!is_null($request->id)) {
-            $feed = $this->getFeedByFeedId($request->id);
+            $feed = Feed::find($request->id);
         } else {
             $feed = new Feed();
+
         }
 
-        // Todo: Implement details
+        $feed->manufacturer_id = $request->manufacturer_id;
+        $feed->feed_type_id = $request->feed_type_id;
+        $feed->package_unit_id = $request->package_unit_id;
+        $feed->name = $request->name;
+        $feed->url = $request->url;
 
-        // TotalStockEntrie anlegen
+        // ToDo: Implementing frontend logic
+        $feed->status = 1;
+        $feed->rating = 0;
 
         $feed->save();
 

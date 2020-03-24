@@ -29,6 +29,15 @@ class PackageUnit extends Model
     public $timestamps = false;
 
     /**
+     * Mapping the package-unit-entry to the corresponding Feed-models
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function feeds() {
+        return $this->hasMany(Feed::class, 'package_unit_id', 'package_unit_id');
+    }
+
+    /**
      * @return PackageUnit[]
      */
     public function getAllPackageUnits() {

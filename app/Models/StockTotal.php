@@ -49,25 +49,28 @@ class StockTotal extends Model
 
     /**
      * @param int $feedId
-     */
-    public function createStockTotalEntry($feedId) {
-        $stockTotal = new StockTotal();
-
-        $stockTotal->feed_id = $feedId;
-        $stockTotal->quantity = 0;
-
-        $stockTotal->save();
-    }
-
-    /**
-     * @param int $feedId
      * @param int $quantity
      */
-    public function updateStockTotalEntry($feedId, $quantity) {
+    public function createOrUpdateStockTotalEntry($feedId, $quantity) {
         $stockTotalEntry = $this->getStockTotalByFeedId($feedId);
+        if (!$stockTotalEntry) {
+            $stockTotalEntry = new StockTotal();
+            $stockTotalEntry->feed_id = $feedId;
+        }
 
         $stockTotalEntry->quantity = $quantity;
 
         $stockTotalEntry->save();
+    }
+
+    /**
+     * @param int $feedId
+     *
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function deleteStockTotalEntry($feedId) {
+        $result = $this->getStockTotalByFeedId($feedId);
+
+        return response($result, 200);
     }
 }

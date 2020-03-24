@@ -43,7 +43,7 @@ class StockMovementController
         $feedId = $stockMovementEntry->feed_id;
 
         $stockTotalQuantity = $this->stockMovement->calculcateStockTotalQuantityByFeedId($feedId);
-        $this->stockTotal->updateStockTotalEntry($feedId, $stockTotalQuantity);
+        $this->stockTotal->createOrUpdateStockTotalEntry($feedId, $stockTotalQuantity);
 
         return response($stockMovementEntry, 200);
     }
